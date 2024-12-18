@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { strings } from "../constants";
 import { fetchUsers } from "../utils";
 import { User } from "../types";
+import { UserListItem } from "../components/UserListItem/UserListItem";
 
 export default function Users() {
 	const [usersList, setUsersList] = useState<User[]>();
@@ -42,14 +43,7 @@ export default function Users() {
 									onClick={() => {}}
 									className="cursor-pointer w-1/2 m-2"
 								>
-									<div>
-										<p>{`${user.name}`}</p>
-										<p>{`${user.username}`}</p>
-										<p>{`${user.email}`}</p>
-										<p>{`${user.address.city}`}</p>
-										<p>{`${user.website}`}</p>
-										<p>{`${user.company.name}`}</p>
-									</div>
+									<UserListItem user={user} />
 								</li>
 							);
 						})}
