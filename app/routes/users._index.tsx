@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useNavigate } from "@remix-run/react";
 
 import { strings } from "../constants";
 import { fetchUsers } from "../utils";
@@ -9,6 +10,7 @@ import { User } from "../types";
 import { UserListItem } from "../components/UserListItem/UserListItem";
 
 export default function Users() {
+	const navigate = useNavigate();
 	const [usersList, setUsersList] = useState<User[]>();
 	const { isLoading, error, data } = useQuery({
 		queryKey: ["users"],
@@ -24,7 +26,7 @@ export default function Users() {
 		return null;
 	}
 	if (isLoading) {
-		return <p>is loading...</p>;
+		return <p>{strings.isLoading}</p>;
 	}
 	return (
 		<main className="flex flex-col items-center justify-center">
@@ -40,7 +42,9 @@ export default function Users() {
 							return (
 								<li
 									key={user.id}
-									onClick={() => {}}
+									onClick={() =>
+										navigate(`/users/${user.id}`)
+									}
 									className="cursor-pointer w-1/2 m-2"
 								>
 									<UserListItem user={user} />
